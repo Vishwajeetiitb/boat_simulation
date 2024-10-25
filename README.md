@@ -15,7 +15,7 @@ This repository contains all packages necessary to set up a USV (Unmanned Surfac
 
 2. **Clone this repository** into the `src` folder:
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/Vishwajeetiitb/boat_simulation.git
    ```
 
 3. **Build the workspace**:
@@ -34,7 +34,7 @@ This repository contains all packages necessary to set up a USV (Unmanned Surfac
 To launch the USV simulation in Gazebo with a predefined environment:
 
 ```bash
-roslaunch vrx_gazebo sydneyregatta.launch
+roslaunch vrx_gazebo simulation.launch
 ```
 
 This command will open Gazebo in the Sydney Regatta environment, where you can simulate and control the boat.
