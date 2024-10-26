@@ -26,7 +26,8 @@ This repository contains all packages necessary to set up a USV (Unmanned Surfac
 
 4. **Source the workspace** to update the ROS environment:
    ```bash
-   source devel/setup.bash
+   echo "source ~/usv_simulation/devel/setup.bash" >> ~/.bashrc
+   source ~/.bashrc
    ```
 
 ### 2. Launch the Simulation
