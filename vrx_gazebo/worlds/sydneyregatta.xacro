@@ -35,15 +35,15 @@
       <!--<plugin name="GUITaskWidget" filename="libgui_task_widget.so"/>-->
     </gui>
 
-    <include>
-      <!-- Note - the pose tag doesn't seem to work for heightmaps, so you need
+     <!-- Note - the pose tag doesn't seem to work for heightmaps, so you need
       to go into the model file to change the altitutde/height!-->
+    <!-- <include>
       <pose> 0 0 0.2 0 0 0 </pose>
       <uri>model://sydney_regatta</uri>
-    </include>
+    </include> -->
 
     <!-- The posts for securing the WAM-V -->
-    <include>
+    <!-- <include>
       <name>post_0</name>
       <pose>-535.916809 154.362869 0.675884 -0.17182 0.030464 -0.005286</pose>
       <uri>model://post</uri>
@@ -57,16 +57,16 @@
       <name>post_2</name>
       <pose>-544.832825 156.671951 0.499025 -0.162625 0 0 </pose>
       <uri>model://post</uri>
-    </include>
+    </include> -->
 
     <!-- Antenna for communication with the WAM-V -->
-    <include>
+    <!-- <include>
       <pose>-531.063721 147.668579 1.59471 -0.068142 0 -0.1</pose>
       <uri>model://antenna</uri>
-    </include>
+    </include> -->
 
     <!-- ground station tents -->
-    <include>
+    <!-- <include>
       <name>ground_station_0</name>
       <pose>-540.796448 146.493744 1.671421 -0.00834 0.01824 1.301726</pose>
       <uri>model://ground_station</uri>
@@ -80,14 +80,14 @@
       <name>ground_station_2</name>
       <pose>-534.550537 144.910400 1.720474 -0.004994 0.020798 1.301492</pose>
       <uri>model://ground_station</uri>
-    </include>
+    </include> -->
 
     <!-- The projectile for the ball shooter -->
-    <include>
+    <!-- <include>
       <name>blue_projectile</name>
       <pose>-545 60 0.03 0 0 0</pose>
       <uri>model://blue_projectile</uri>
-    </include>
+    </include> -->
 
   </xacro:macro>
 </world>

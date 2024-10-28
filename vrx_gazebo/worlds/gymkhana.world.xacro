@@ -28,14 +28,57 @@
     <!-- The navigation course -->
     <include>
       <uri>model://short_navigation_course0</uri>
-      <pose>-524 186 0 0 0 -1.44</pose>
+      <pose>-824 186 0 0 0 -1.44</pose>
     </include>
 
     <!-- The obstacle course -->
-    <include>
+    <!-- <include>
       <name>buoys</name>
       <uri>model://obstacle_course</uri>
       <pose>-477 275 0 0 0 2.54</pose>
+    </include> -->
+
+    <!-- <include>
+      <name>platypus_buoy</name>
+      <pose>-512 170 0 0 0 0</pose>
+      <uri>model://platypus_buoy</uri>
+    </include> -->
+
+    <include>
+      <name>water_bottle_buoy</name>
+      <pose>-512 170 0 0 0 0</pose>
+      <uri>model://water_bottle_buoy</uri>
+    </include>
+
+     <!-- The VRX animal buoys -->
+    <include>
+      <name>crocodile_buoy</name>
+      <pose>-518 170 0 0 0 0</pose>
+      <uri>model://crocodile_buoy</uri>
+    </include>
+
+    <include>
+      <name>water_bottle_buoy</name>
+      <pose>-512 170 0 0 0 0</pose>
+      <uri>model://water_bottle_buoy</uri>
+    </include>
+
+    <include>
+      <name>water_bottle_buoy2</name>
+      <pose>-510 165 0 0 0 0</pose>
+      <uri>model://water_bottle_buoy</uri>
+    </include>
+
+    <include>
+      <name>can_buoy2</name>
+      <pose>-505 165 0 0 0 0</pose>
+      <uri>model://can_buoy</uri>
+    </include>
+
+    <include>
+      <name>turtle_buoy</name>
+      <pose>-504 170 0 0 0 0</pose>
+      <uri>model://turtle_buoy</uri>
     </include>
 
     <!-- Top-level scoring plugin -->
