@@ -49,6 +49,7 @@ class YoloDetector:
         return self.net.forward(self.get_output_layers())
 
 # Function to draw bounding boxes
+# Function to draw bounding boxes
 def draw_bounding_boxes(frame, outs, conf_threshold=0.65, nms_threshold=0.4):
     width, height = frame.shape[1], frame.shape[0]
     class_ids, confidences, boxes = [], [], []
@@ -68,17 +69,22 @@ def draw_bounding_boxes(frame, outs, conf_threshold=0.65, nms_threshold=0.4):
 
     # Apply non-maximum suppression to remove duplicate boxes
     indices = cv2.dnn.NMSBoxes(boxes, confidences, conf_threshold, nms_threshold)
-    for i in indices:
-        i = i[0]  # Access index from the tuple
-        x, y, w, h = boxes[i]
-        label = f"{classes[class_ids[i]]}: {confidences[i]:.2f}"
-        
-        # Choose color based on the class ID
-        color = colors[class_ids[i] % len(colors)]
+    
+    # Handle different formats of indices
+    if len(indices) > 0:
+        if isinstance(indices, np.ndarray):  # Newer versions of OpenCV (NumPy array)
+            indices = indices.flatten()
+        elif isinstance(indices[0], list):  # Older versions of OpenCV (list of lists)
+            indices = [i[0] for i in indices]
 
-        # Draw bounding box and label with class-specific color
-        cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
-        cv2.putText(frame, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+        # Draw bounding boxes
+        for i in indices:
+            x, y, w, h = boxes[i]
+            label = f"{classes[class_ids[i]]}: {confidences[i]:.2f}"
+            color = colors[class_ids[i] % len(colors)]  # Choose color based on class ID
+            cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
+            cv2.putText(frame, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+    
 
 def callback(data, args):
     yolo_detector, bridge = args
