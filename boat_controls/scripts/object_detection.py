@@ -18,12 +18,24 @@ package_path = rospack.get_path('boat_controls')
 cfg_path = f"{package_path}/model_files/yolov4_tiny.cfg"
 weights_path = f"{package_path}/model_files/yolov4_tiny.weights"
 
+# Toggle for using GPU (CUDA) or CPU
+use_cuda = False  # Set to False to use CPU instead of GPU
+
 # YOLO Detector class
 class YoloDetector:
-    def __init__(self, cfg_path, weights_path):
+    def __init__(self, cfg_path, weights_path, use_cuda=True):
         self.net = cv2.dnn.readNetFromDarknet(cfg_path, weights_path)
-        self.net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
-        self.net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
+        
+        if use_cuda:
+            # Use CUDA backend for GPU
+            self.net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
+            self.net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
+            rospy.loginfo("Using GPU (CUDA) for computation.")
+        else:
+            # Use default backend for CPU
+            self.net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
+            self.net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
+            rospy.loginfo("Using CPU for computation.")
 
     def get_output_layers(self):
         layer_names = self.net.getLayerNames()
@@ -56,13 +68,13 @@ def draw_bounding_boxes(frame, outs, conf_threshold=0.65, nms_threshold=0.4):
 
     # Apply non-maximum suppression to remove duplicate boxes
     indices = cv2.dnn.NMSBoxes(boxes, confidences, conf_threshold, nms_threshold)
-    for i in indices:  # No need to use .flatten(), just iterate directly
+    for i in indices:
         i = i[0]  # Access index from the tuple
         x, y, w, h = boxes[i]
         label = f"{classes[class_ids[i]]}: {confidences[i]:.2f}"
         
         # Choose color based on the class ID
-        color = colors[class_ids[i] % len(colors)]  # Use modulus in case classes > colors
+        color = colors[class_ids[i] % len(colors)]
 
         # Draw bounding box and label with class-specific color
         cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
@@ -87,8 +99,8 @@ def main():
     rospy.init_node('simple_yolo_detection', anonymous=True)
     bridge = CvBridge()
 
-    # Load YOLO model
-    yolo_detector = YoloDetector(cfg_path, weights_path)
+    # Load YOLO model with the use_cuda toggle
+    yolo_detector = YoloDetector(cfg_path, weights_path, use_cuda=use_cuda)
 
     # Subscribe to camera feed
     rospy.Subscriber("/wamv/sensors/cameras/front_camera/image_raw", Image, callback, callback_args=(yolo_detector, bridge))
